@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { uploadData } from "./upload";
 import CameraSnapshotter from "./CameraSnapshotter";
 
 // export default function App() {

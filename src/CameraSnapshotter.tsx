@@ -1,5 +1,5 @@
 import React from "react";
-import { uploadData } from "./upload";
+import { getFacesFromData } from "./face";
 
 interface CameraSnapshotterState {
   currentState:
@@ -83,7 +83,7 @@ export default class CameraSnapshotter extends React.PureComponent<
                       throw new Error("couldn't into Blob");
                     }
 
-                    uploadData(blob).then((data) => {
+                    getFacesFromData(blob).then((data) => {
                       console.log(data);
 
                       if (data.length !== 0) {
