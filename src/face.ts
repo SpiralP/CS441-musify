@@ -1,6 +1,7 @@
 import axios from "axios";
 import { logger } from "./logger";
 
+// https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236
 const FACE_API =
   "https://ajskdlfjkalsdfasdf.cognitiveservices.azure.com/face/v1.0/detect";
 
