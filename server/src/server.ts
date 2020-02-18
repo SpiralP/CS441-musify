@@ -6,6 +6,7 @@ import cors from "cors";
 const Xapi = require("xmysql/lib/xapi.js");
 const cmdargs = require("xmysql/lib/util/cmd.helper.js");
 
+const ADDRESS = "0.0.0.0";
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 interface Config {
@@ -50,7 +51,9 @@ async function start() {
     if (err) {
       throw new Error(err);
     }
-    app.listen(PORT, "0.0.0.0");
+
+    console.log(`listening on http://${ADDRESS}:${PORT}/`);
+    app.listen(PORT, ADDRESS);
   });
 }
 
