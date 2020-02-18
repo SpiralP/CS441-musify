@@ -2,6 +2,7 @@
   "name": "musify",
   "version": "1.0.0",
   "scripts": {
+    "start": "npm run build && npm start --prefix server",
     "build": "parcel build src/index.html",
     "build:watch": "parcel watch --no-hmr src/index.html",
     "dev": "parcel src/index.html",

@@ -1,0 +1,21 @@
+{
+  "name": "musify-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "ts-node src/server.ts"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "xmysql": "SpiralP/xmysql"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/cors": "^2.8.6",
+    "@types/morgan": "^1.7.37",
+    "@types/mysql": "^2.15.8",
+    "@types/node": "^13.7.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}
