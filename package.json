@@ -14,6 +14,7 @@
   "dependencies": {
     "@blueprintjs/core": "^3.23.1",
     "axios": "^0.19.2",
+    "parcel-bundler": "^1.12.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-dropzone": "^10.2.1",
@@ -29,7 +30,6 @@
     "@types/react-dropzone": "^5.1.0",
     "chai": "^4.2.0",
     "mocha": "^7.0.1",
-    "parcel-bundler": "^1.12.4",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
   },
