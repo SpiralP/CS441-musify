@@ -7,7 +7,8 @@
     "build:watch": "parcel watch --no-hmr src/index.html",
     "dev": "parcel src/index.html",
     "test": "mocha --require ts-node/register tests/**/*.ts",
-    "test:watch": "npm run test -- --watch --watch-files src, tests/**/*.ts"
+    "test:watch": "npm run test -- --watch --watch-files src, tests/**/*.ts",
+    "postinstall": "cd server && npm install"
   },
   "license": "ISC",
   "dependencies": {
