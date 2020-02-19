@@ -5,10 +5,6 @@ import App from "./App";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
-// gross fix for winston in browser
-// https://github.com/winstonjs/winston/issues/1354#issuecomment-426433071
-import "setimmediate";
-
 // // import css files
 // import "normalize.css/normalize.css";
 // // <!-- blueprint-icons.css file must be included alongside blueprint.css! -->

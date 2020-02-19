@@ -2,7 +2,8 @@
   "name": "musify-server",
   "version": "1.0.0",
   "scripts": {
-    "start": "ts-node src/server.ts"
+    "start": "ts-node src/server.ts",
+    "watch": "nodemon --ext ts,json"
   },
   "license": "ISC",
   "dependencies": {
@@ -15,5 +16,8 @@
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5",
     "xmysql": "SpiralP/xmysql"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }

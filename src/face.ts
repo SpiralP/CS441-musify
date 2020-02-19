@@ -1,5 +1,4 @@
 import axios from "axios";
-import { logger } from "./logger";
 
 // https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236
 const FACE_API =
@@ -45,7 +44,7 @@ export type FaceApiResponse = FaceData[];
 export async function getFacesFromData(
   data: Blob | Buffer
 ): Promise<FaceApiResponse> {
-  logger.info(
+  console.log(
     `uploading ${data instanceof Buffer ? data.length : data.size} bytes`
   );
 
@@ -60,7 +59,7 @@ export async function getFacesFromData(
 }
 
 export async function getFacesFromUrl(url: string): Promise<FaceApiResponse> {
-  logger.info(`uploading ${url}`);
+  console.log(`uploading ${url}`);
 
   const response = await api({
     headers: {

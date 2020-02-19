@@ -1,6 +1,5 @@
 import React from "react";
 import { getFacesFromData } from "./face";
-import { logger } from "./logger";
 
 interface CameraSnapshotterState {
   currentState:
@@ -61,7 +60,7 @@ export default class CameraSnapshotter extends React.PureComponent<
             setTimeout(() => {
               const { currentState } = this.state;
 
-              logger.debug("timeout");
+              console.log("timeout");
               if (currentState.type === "ready") {
                 if (this.videoRef.current && this.canvasRef.current) {
                   const video = this.videoRef.current;
@@ -74,7 +73,7 @@ export default class CameraSnapshotter extends React.PureComponent<
 
                   context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                  logger.debug("snapshot");
+                  console.log("snapshot");
                   this.setState({
                     currentState: { type: "ready", message: "snapshotting" },
                   });

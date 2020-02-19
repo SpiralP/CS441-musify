@@ -1,8 +1,11 @@
-import morgan from "morgan";
+import axios from "axios";
+import qs from "qs";
 import bodyParser from "body-parser";
-import express from "express";
-import mysql from "mysql";
 import cors from "cors";
+import express from "express";
+import morgan from "morgan";
+import mysql from "mysql";
+import querystring from "querystring";
 const Xapi = require("xmysql/lib/xapi.js");
 const cmdargs = require("xmysql/lib/util/cmd.helper.js");
 
@@ -31,7 +34,7 @@ cmdargs.handle(sqlConfig);
 
 async function start() {
   const app = express();
-  app.use(morgan("tiny"));
+  app.use(morgan("combined"));
   app.use(cors());
   app.use(bodyParser.json());
   app.use(
@@ -42,9 +45,70 @@ async function start() {
 
   app.use(express.static("../dist"));
 
-  const mysqlPool = mysql.createPool(sqlConfig);
-  console.log("Generating REST APIs");
+  const CLIENT_ID = "ebacb6791c014ba7890d3694545e66f9";
+  const CLIENT_SECRET = "50fd18b26f5246298e3939767e3f4008";
 
+  const scopes = "user-read-private user-read-email";
+
+  // app.get("/login", function(req, res) {
+  //   const redirect_uri = req.protocol + "://" + req.get("host") + "/callback";
+  //   console.log(
+  //     `redirecting client to spotify's authorize page, redirect_uri = ${redirect_uri}`
+  //   );
+
+  //   res.redirect(
+  //     "https://accounts.spotify.com/authorize?" +
+  //       qs.stringify({
+  //         response_type: "code",
+  //         client_id: CLIENT_ID,
+  //         scopes,
+  //         redirect_uri,
+  //       })
+  //   );
+  // });
+
+  // pass access_token from authorization code handoff straight to client :JOY:
+  app.get("/callback", function(req, res, next) {
+    const redirect_uri = req.protocol + "://" + req.get("host") + "/callback";
+
+    const error = req.query.error;
+    if (error != null) {
+      res.send("Spotify returned error: " + error);
+    } else {
+      const code = req.query.code;
+      if (!code) {
+        throw new Error("received no code or error in query parameters");
+      } else {
+        axios({
+          method: "POST",
+          url: "https://accounts.spotify.com/api/token",
+          data: qs.stringify({
+            grant_type: "authorization_code",
+            code,
+            redirect_uri,
+          }),
+          auth: {
+            username: CLIENT_ID,
+            password: CLIENT_SECRET,
+          },
+        })
+          .then((response) => {
+            console.log(response.data);
+
+            res.redirect(
+              "/?" +
+                qs.stringify({
+                  token: response.data.access_token,
+                })
+            );
+          })
+          .catch(next);
+      }
+    }
+  });
+
+  console.log("Generating REST APIs");
+  const mysqlPool = mysql.createPool(sqlConfig);
   const moreApis = new Xapi(sqlConfig, mysqlPool, app);
 
   moreApis.init((err: any, results: any) => {
