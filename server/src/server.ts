@@ -34,6 +34,8 @@ cmdargs.handle(sqlConfig);
 
 async function start() {
   const app = express();
+  app.set("trust proxy", true);
+
   app.use(morgan("combined"));
   app.use(cors());
   app.use(bodyParser.json());
@@ -69,8 +71,6 @@ async function start() {
 
   // pass access_token from authorization code handoff straight to client :JOY:
   app.get("/callback", function(req, res, next) {
-    console.log(req.headers);
-
     const redirect_uri = req.protocol + "://" + req.get("host") + "/callback";
 
     const error = req.query.error;
@@ -105,7 +105,6 @@ async function start() {
             );
           })
           .catch((err) => {
-            console.error(err);
             next(err);
           });
       }
