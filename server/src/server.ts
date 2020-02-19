@@ -116,7 +116,7 @@ async function start() {
       throw new Error(err);
     }
 
-    console.log(`listening on http://${ADDRESS}:${PORT}/`);
+    console.log(`listening on http://localhost:${PORT}/`);
     app.listen(PORT, ADDRESS);
   });
 }
