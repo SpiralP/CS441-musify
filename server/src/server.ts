@@ -69,6 +69,8 @@ async function start() {
 
   // pass access_token from authorization code handoff straight to client :JOY:
   app.get("/callback", function(req, res, next) {
+    console.log(req.headers);
+
     const redirect_uri = req.protocol + "://" + req.get("host") + "/callback";
 
     const error = req.query.error;
@@ -102,7 +104,10 @@ async function start() {
                 })
             );
           })
-          .catch(next);
+          .catch((err) => {
+            console.error(err);
+            next(err);
+          });
       }
     }
   });
