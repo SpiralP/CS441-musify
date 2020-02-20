@@ -82,7 +82,13 @@ export default class Spotify extends React.PureComponent<
     } else if (currentState.type === "ready") {
       return (
         <>
-          <SpotifyTrack api={this.api} trackId="4QqZcaQTAd25brQV91eegi" />
+          <SpotifyTrack api={this.api} trackId="1ugKYT4OfPyp4KFovrk4UL" />
+          <SpotifyTrack
+            api={this.api}
+            trackId="4Ek5wuxuDrHtf04j3qXQCG"
+            play={true}
+          />
+          <SpotifyTrack api={this.api} trackId="78Chw7C9NedoNMVKTPDhHU" />
         </>
       );
     } else if (currentState.type === "error") {
