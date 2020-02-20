@@ -2,22 +2,28 @@
   "name": "musify-server",
   "version": "1.0.0",
   "scripts": {
-    "start": "ts-node --files src/server.ts",
-    "watch": "nodemon --ext ts,json"
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "watch": "nodemon --ext ts,json --exec \"npm run build && npm run start\""
   },
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "mysql": "^2.18.1",
+    "xmysql": "SpiralP/xmysql"
+  },
+  "devDependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/cors": "^2.8.6",
     "@types/morgan": "^1.7.37",
     "@types/mysql": "^2.15.8",
     "@types/node": "^13.7.1",
-    "express": "^4.17.1",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.7.5",
-    "xmysql": "SpiralP/xmysql"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.2"
+    "@types/qs": "^6.9.1",
+    "nodemon": "^2.0.2",
+    "typescript": "^3.7.5"
   }
 }

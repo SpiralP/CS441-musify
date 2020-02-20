@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "npm start --prefix server",
-    "build": "parcel build src/index.html",
+    "build": "parcel build src/index.html && cd server && npm run build",
     "dev": "nodemon --ext ts,tsx,json --exec \"npm run build && npm run start\"",
     "test": "mocha --require ts-node/register tests/**/*.ts",
     "test:watch": "npm run test -- --watch --watch-files src, tests/**/*.ts",
