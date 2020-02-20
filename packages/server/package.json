@@ -1,10 +1,10 @@
 {
   "name": "musify-server",
+  "private": true,
   "version": "1.0.0",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "tsc",
-    "watch": "nodemon --ext ts,json --exec \"npm run build && npm run start\""
+    "build": "tsc"
   },
   "license": "ISC",
   "dependencies": {
@@ -23,7 +23,6 @@
     "@types/mysql": "^2.15.8",
     "@types/node": "^13.7.1",
     "@types/qs": "^6.9.1",
-    "nodemon": "^2.0.2",
     "typescript": "^3.7.5"
   }
 }
