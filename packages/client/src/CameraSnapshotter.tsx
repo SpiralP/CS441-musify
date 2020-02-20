@@ -34,9 +34,8 @@ export default class CameraSnapshotter extends React.PureComponent<
   }
 
   componentDidMount() {
-    const { interval } = this.props;
-
-    setTimeout(() => this.capture(), interval * 1000);
+    // capture right away
+    this.capture();
   }
 
   capture() {
