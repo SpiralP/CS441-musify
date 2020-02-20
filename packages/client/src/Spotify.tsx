@@ -3,6 +3,7 @@ import React from "react";
 import SpotifyTrack from "./SpotifyTrack";
 import cookie from "cookie";
 import Autoplay from "./Autoplay";
+import SpotifyPlaylist from "./SpotifyPlaylist";
 
 interface SpotifyProps {
   clientId: string;
@@ -40,6 +41,7 @@ export default class Spotify extends React.PureComponent<
           play={true}
         />
         <SpotifyTrack api={this.api} trackId="78Chw7C9NedoNMVKTPDhHU" />
+        <SpotifyPlaylist api={this.api} playlistId="0WfvdlPZunjRMlTWpZdK1t" />
       </Autoplay>
     );
   }

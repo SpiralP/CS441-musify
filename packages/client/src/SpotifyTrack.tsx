@@ -60,7 +60,7 @@ export default class SpotifyTrack extends React.PureComponent<
       return "loading";
     } else {
       const { autoPlay } = this;
-      const { name, artists, preview_url } = data;
+      const { name, external_urls, artists, preview_url } = data;
 
       if (!preview_url) {
         // TODO maybe premium people can play directly?
@@ -71,11 +71,17 @@ export default class SpotifyTrack extends React.PureComponent<
       return (
         <div>
           <h3>
-            {name} by {artists.map((artist) => artist.name).join(", ")}
+            <a href={external_urls.spotify}> {name}</a>
+            {" by "}
+            {artists.map(({ name, external_urls }, i) => [
+              i > 0 && ", ",
+              <a href={external_urls.spotify}>{name}</a>,
+            ])}
           </h3>
           <audio
             ref={this.audioRef}
             src={preview_url}
+            preload="none"
             autoPlay={autoPlay}
             controls={true}
           />
