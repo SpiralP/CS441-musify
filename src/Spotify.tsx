@@ -1,7 +1,7 @@
 import SpotifyWebApi from "spotify-web-api-node";
 import React from "react";
-import PromiseComponent from "./SpotifyTrack";
 import SpotifyTrack from "./SpotifyTrack";
+import cookie from "cookie";
 
 const scopes = ["user-read-private", "user-read-email"];
 const redirectUri = location.origin + "/callback";
@@ -12,7 +12,7 @@ interface SpotifyProps {
 
 interface SpotifyState {
   currentState:
-    | { type: "unknown" }
+    | { type: "checkingToken" }
     | { type: "requestingToken" }
     | { type: "error"; error: Error }
     | { type: "ready" };
@@ -24,7 +24,7 @@ export default class Spotify extends React.PureComponent<
 > {
   state: SpotifyState = {
     currentState: {
-      type: "unknown",
+      type: "checkingToken",
     },
   };
 
@@ -42,27 +42,33 @@ export default class Spotify extends React.PureComponent<
   }
 
   requestToken() {
-    // Create the authorization URL
-    const authorizeURL = this.api.createAuthorizeURL(scopes, "");
+    console.log("requesting token");
+    this.setState({ currentState: { type: "requestingToken" } });
 
-    // https://accounts.spotify.com:443/authorize?client_id=5fe01282e44241328a84e7c5cc169165&response_type=code&redirect_uri=https://example.com/callback&scope=user-read-private%20user-read-email&state=some-state-of-my-choice
-    window.location.href = authorizeURL;
+    window.location.href = this.api.createAuthorizeURL(scopes, "");
   }
 
   componentDidMount() {
-    // TODO maybe as a header
-    const params = new URLSearchParams(window.location.search);
-    const accessToken = params.get("token");
+    const { spotifyAccessToken } = cookie.parse(document.cookie);
 
-    if (accessToken) {
-      console.log("have token");
-      this.api.setAccessToken(accessToken);
+    if (spotifyAccessToken) {
+      console.log("have token, checking");
+      this.api.setAccessToken(spotifyAccessToken);
 
-      this.setState({ currentState: { type: "ready" } });
+      this.api.getMe().then(
+        () => {
+          this.setState({ currentState: { type: "ready" } });
+        },
+        (err) => {
+          if (err.message === "Invalid access token") {
+            // ask for a new token
+            this.requestToken();
+          } else {
+            console.warn(err.message);
+          }
+        }
+      );
     } else {
-      console.log("requesting token");
-      this.setState({ currentState: { type: "requestingToken" } });
-
       // will refresh the page once gotten
       this.requestToken();
     }
@@ -81,8 +87,10 @@ export default class Spotify extends React.PureComponent<
       );
     } else if (currentState.type === "error") {
       return `Error: ${currentState.error}`;
+    } else if (currentState.type === "checkingToken") {
+      return "checking Spotify token";
     } else {
-      return "loading";
+      throw "unreachable";
     }
   }
 }

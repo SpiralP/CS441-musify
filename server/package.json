@@ -2,7 +2,7 @@
   "name": "musify-server",
   "version": "1.0.0",
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "start": "ts-node --files src/server.ts",
     "watch": "nodemon --ext ts,json"
   },
   "license": "ISC",
