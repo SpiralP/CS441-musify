@@ -7,6 +7,7 @@ import morgan from "morgan";
 import mysql from "mysql";
 import Xapi from "xmysql/lib/xapi.js";
 import cmdargs from "xmysql/lib/util/cmd.helper.js";
+import express_enforces_ssl from "express-enforces-ssl";
 
 const CLIENT_ID = "ebacb6791c014ba7890d3694545e66f9";
 const CLIENT_SECRET = "50fd18b26f5246298e3939767e3f4008";
@@ -27,7 +28,16 @@ cmdargs.handle(sqlConfig);
 
 async function start() {
   const app = express();
-  app.set("trust proxy", true);
+
+  if (process.env.PORT) {
+    // we're running on heroku
+
+    // sets req.protocol to the proxy's protocol
+    app.enable("trust proxy");
+
+    // redirect to https if coming from http
+    app.use(express_enforces_ssl());
+  }
 
   app.use(morgan("common"));
   app.use(cors());

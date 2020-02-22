@@ -1280,6 +1280,13 @@
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
   integrity sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==
 
+"@types/express-enforces-ssl@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/express-enforces-ssl/-/express-enforces-ssl-1.1.1.tgz#9b686f3aeb7279ae170bd1493546c836da43aac6"
+  integrity sha512-TGLJv2jZs5E26lAqLMmcsqPJi1F5SxEsKbqdyAyYa3sicanX29ZP/bVW+1M3q1/fshMvQhGaPxql8IV7sbTh4A==
+  dependencies:
+    "@types/express" "*"
+
 "@types/express-serve-static-core@*":
   version "4.17.2"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.17.2.tgz#f6f41fa35d42e79dbf6610eccbb2637e6008a0cf"
@@ -4286,6 +4293,11 @@ expect@^24.9.0:
     jest-matcher-utils "^24.9.0"
     jest-message-util "^24.9.0"
     jest-regex-util "^24.9.0"
+
+express-enforces-ssl@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/express-enforces-ssl/-/express-enforces-ssl-1.1.0.tgz#cf29c6a61c5bdd802e2c7ed265a4a98e7487d1ac"
+  integrity sha1-zynGphxb3YAuLH7SZaSpjnSH0aw=
 
 express@^4.16.1, express@^4.17.1:
   version "4.17.1"
