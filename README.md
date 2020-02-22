@@ -2,15 +2,17 @@
 
 ## Running
 
+Requires Yarn https://classic.yarnpkg.com/en/docs/install
+
 To start a local development server
 
 ```
-npm install
-npm run dev
+yarn install
+yarn dev
 ```
 
 ## Deploying
 
-Pushing to this repo will automatically deploy to https://cs441-musify.herokuapp.com/ after about 5 minutes
+Pushing to this repo will automatically deploy to https://cs441-musify.herokuapp.com/ after about a minute
 
 Logs at https://dashboard.heroku.com/apps/cs441-musify/logs

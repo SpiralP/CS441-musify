@@ -15,8 +15,8 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "packages/client/build",
-      "packages/server/dist"
+      "packages/client/build/",
+      "packages/server/dist/"
     ],
     "ext": "ts,tsx,json"
   }
