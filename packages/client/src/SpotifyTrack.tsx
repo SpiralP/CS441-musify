@@ -47,7 +47,7 @@ export default class SpotifyTrack extends React.PureComponent<
 
     return (
       <Loader
-        promise={api.getTrack(trackId)}
+        promise={() => api.getTrack(trackId)}
         renderError={(error) => `SpotifyTrack error: ${error}`}
         renderLoading={"loading track"}
         renderSuccess={({ body }) => {

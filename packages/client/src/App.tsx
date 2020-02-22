@@ -37,7 +37,7 @@ export default class App extends React.PureComponent<{}, AppState> {
     return (
       <div>
         <Loader
-          promise={Camera.setup()}
+          promise={() => Camera.setup()}
           renderError={(error) => `Camera error: ${error}`}
           renderLoading={"loading camera"}
           renderSuccess={(camera) => (

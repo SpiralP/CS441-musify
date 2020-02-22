@@ -1,7 +1,7 @@
 import React from "react";
 
 interface LoaderProps<T> {
-  promise: Promise<T>;
+  promise: () => Promise<T>;
   renderLoading: React.ReactNode;
   renderSuccess: (value: T) => React.ReactNode;
   renderError: (value: Error) => React.ReactNode;
@@ -27,7 +27,7 @@ export default class Loader<T> extends React.PureComponent<
   componentDidMount() {
     const { promise } = this.props;
 
-    promise
+    promise()
       .then((value) => {
         this.setState({
           currentState: {

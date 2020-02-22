@@ -17,17 +17,6 @@ export default class SpotifyPlaylist extends React.PureComponent<
   static contextType = SpotifyApiContext;
   context!: React.ContextType<typeof SpotifyApiContext>;
 
-  audioRef: React.RefObject<HTMLAudioElement> = React.createRef();
-  // autoPlay: boolean;
-
-  // constructor(props: SpotifyPlaylistProps) {
-  //   super(props);
-
-  // TODO
-  // const { play } = props;
-  // this.autoPlay = play ? true : false;
-  // }
-
   componentDidMount() {
     const api = this.context;
     const { playlistId } = this.props;
@@ -46,7 +35,7 @@ export default class SpotifyPlaylist extends React.PureComponent<
 
     return (
       <Loader
-        promise={api.getPlaylist(playlistId)}
+        promise={() => api.getPlaylist(playlistId)}
         renderError={(error) => `SpotifyPlaylist error: ${error}`}
         renderLoading={"loading playlist"}
         renderSuccess={({ body }) => {

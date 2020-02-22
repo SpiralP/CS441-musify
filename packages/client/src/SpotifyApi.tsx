@@ -12,7 +12,7 @@ interface SpotifyApiProps {
 export default function SpotifyApi({ render }: SpotifyApiProps) {
   return (
     <Loader
-      promise={getApi()}
+      promise={() => getApi()}
       renderError={(error) => `Spotify api error: ${error}`}
       renderLoading={"Connecting to Spotify"}
       renderSuccess={(api) => (
