@@ -1,9 +1,12 @@
 import React from "react";
-import Spotify from "./Spotify";
 import { getApi } from "./spotifyAuthentication";
 import SpotifyWebApi from "spotify-web-api-node";
 
-interface SpotifyApiProps {}
+export const SpotifyApiContext = React.createContext(new SpotifyWebApi());
+
+interface SpotifyApiProps {
+  render: (api: SpotifyWebApi) => React.ReactNode;
+}
 
 interface SpotifyApiState {
   currentState:
@@ -48,7 +51,12 @@ export default class SpotifyApi extends React.PureComponent<
       return "connecting to Spotify";
     } else if (currentState.type === "ready") {
       const { api } = currentState;
-      return <Spotify api={api} />;
+      const { render } = this.props;
+      return (
+        <SpotifyApiContext.Provider value={api}>
+          {render(api)}
+        </SpotifyApiContext.Provider>
+      );
     } else if (currentState.type === "error") {
       return `Error: ${currentState.error}`;
     }

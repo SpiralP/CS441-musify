@@ -1,8 +1,7 @@
 import React from "react";
-import SpotifyWebApi from "spotify-web-api-node";
+import { SpotifyApiContext } from "./SpotifyApi";
 
 interface SpotifyTrackProps {
-  api: SpotifyWebApi;
   trackId: string;
   play?: boolean;
 }
@@ -15,6 +14,9 @@ export default class SpotifyTrack extends React.PureComponent<
   SpotifyTrackProps,
   SpotifyTrackState
 > {
+  static contextType = SpotifyApiContext;
+  context!: React.ContextType<typeof SpotifyApiContext>;
+
   state: SpotifyTrackState = {};
   audioRef: React.RefObject<HTMLAudioElement> = React.createRef();
   autoPlay: boolean;
@@ -28,7 +30,8 @@ export default class SpotifyTrack extends React.PureComponent<
   }
 
   componentDidMount() {
-    const { api, trackId } = this.props;
+    const api = this.context;
+    const { trackId } = this.props;
 
     api.getTrack(trackId).then((response) => {
       this.setState({ data: response.body });

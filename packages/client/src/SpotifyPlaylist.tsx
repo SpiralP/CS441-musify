@@ -1,9 +1,8 @@
 import React from "react";
-import SpotifyWebApi from "spotify-web-api-node";
 import SpotifyTrack from "./SpotifyTrack";
+import { SpotifyApiContext } from "./SpotifyApi";
 
 interface SpotifyPlaylistProps {
-  api: SpotifyWebApi;
   playlistId: string;
   play?: boolean;
 }
@@ -19,6 +18,9 @@ export default class SpotifyPlaylist extends React.PureComponent<
   SpotifyPlaylistProps,
   SpotifyPlaylistState
 > {
+  static contextType = SpotifyApiContext;
+  context!: React.ContextType<typeof SpotifyApiContext>;
+
   state: SpotifyPlaylistState = {};
   audioRef: React.RefObject<HTMLAudioElement> = React.createRef();
   autoPlay: boolean;
@@ -32,7 +34,8 @@ export default class SpotifyPlaylist extends React.PureComponent<
   }
 
   componentDidMount() {
-    const { api, playlistId } = this.props;
+    const api = this.context;
+    const { playlistId } = this.props;
 
     api.getPlaylist(playlistId).then(async (response) => {
       const playlist = response.body;
@@ -62,7 +65,6 @@ export default class SpotifyPlaylist extends React.PureComponent<
   }
 
   render() {
-    const { api } = this.props;
     const { data } = this.state;
     if (!data) {
       return "loading";
@@ -76,7 +78,7 @@ export default class SpotifyPlaylist extends React.PureComponent<
             Playlist <a href={external_urls.spotify}> {name}</a>
           </h3>
           {tracks.map((track, i) => (
-            <SpotifyTrack key={i} api={api} trackId={track.track.id} />
+            <SpotifyTrack key={i} trackId={track.track.id} />
           ))}
         </div>
       );

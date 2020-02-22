@@ -3,6 +3,9 @@ import SpotifyApi from "./SpotifyApi";
 import CameraSetup from "./CameraSetup";
 import { getFacesFromData, FaceApiResponse } from "./face";
 import Mooder from "./Mooder";
+import Autoplay from "./Autoplay";
+import SpotifyTrack from "./SpotifyTrack";
+import SpotifyPlaylist from "./SpotifyPlaylist";
 
 // type Mood =
 //   | "anger"
@@ -51,7 +54,16 @@ export default class App extends React.PureComponent<{}, AppState> {
           <Mooder data={currentState.data} />
         ) : null}
 
-        <SpotifyApi />
+        <SpotifyApi
+          render={() => (
+            <Autoplay>
+              <SpotifyTrack trackId="1ugKYT4OfPyp4KFovrk4UL" play={true} />
+              <SpotifyTrack trackId="4Ek5wuxuDrHtf04j3qXQCG" />
+              <SpotifyTrack trackId="78Chw7C9NedoNMVKTPDhHU" />
+              <SpotifyPlaylist playlistId="0WfvdlPZunjRMlTWpZdK1t" />
+            </Autoplay>
+          )}
+        />
       </div>
     );
   }
