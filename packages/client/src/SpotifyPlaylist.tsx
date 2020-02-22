@@ -75,8 +75,8 @@ export default class SpotifyPlaylist extends React.PureComponent<
           <h3>
             Playlist <a href={external_urls.spotify}> {name}</a>
           </h3>
-          {tracks.map((track) => (
-            <SpotifyTrack api={api} trackId={track.track.id} />
+          {tracks.map((track, i) => (
+            <SpotifyTrack key={i} api={api} trackId={track.track.id} />
           ))}
         </div>
       );

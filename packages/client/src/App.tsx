@@ -1,5 +1,5 @@
 import React from "react";
-import SpotifyTokenHandler from "./SpotifyTokenHandler";
+import SpotifyApi from "./SpotifyApi";
 import CameraSetup from "./CameraSetup";
 import { getFacesFromData, FaceApiResponse } from "./face";
 import Mooder from "./Mooder";
@@ -51,7 +51,7 @@ export default class App extends React.PureComponent<{}, AppState> {
           <Mooder data={currentState.data} />
         ) : null}
 
-        <SpotifyTokenHandler clientId="ebacb6791c014ba7890d3694545e66f9" />
+        <SpotifyApi />
       </div>
     );
   }

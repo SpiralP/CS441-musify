@@ -75,7 +75,9 @@ export default class SpotifyTrack extends React.PureComponent<
             {" by "}
             {artists.map(({ name, external_urls }, i) => [
               i > 0 && ", ",
-              <a href={external_urls.spotify}>{name}</a>,
+              <a key={i} href={external_urls.spotify}>
+                {name}
+              </a>,
             ])}
           </h3>
           <audio

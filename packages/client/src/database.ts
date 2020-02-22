@@ -1,12 +1,8 @@
 import axios from "axios";
 
-const apiOptions: any = {};
-if (!process.env.PORT) {
-  // we're testing locally, hope you ran npm start!
-  apiOptions.baseURL = "http://localhost:3000";
-}
-
-const api = axios.create(apiOptions);
+const api = axios.create({
+  baseURL: "https://cs441-musify.herokuapp.com/",
+});
 
 export async function getUsers(): Promise<User[]> {
   const response = await api(`/api/User`);
