@@ -6,7 +6,7 @@ interface CameraSnapshotterProps {
   camera: Camera;
 
   /**
-   * in seconds
+   * milliseconds
    */
   interval: number;
 }
@@ -26,29 +26,37 @@ export default class CameraSnapshotter extends React.PureComponent<
     currentState: { type: "idle" },
   };
 
-  canvasRef: React.RefObject<HTMLCanvasElement> = React.createRef();
-  videoRef: React.RefObject<HTMLVideoElement> = React.createRef();
-
-  setError(error: Error) {
-    this.setState({ currentState: { type: "error", error } });
-  }
-
   componentDidMount() {
     // capture right away
     this.capture();
   }
 
-  capture() {
+  private capture() {
     const { interval, camera, onCapture } = this.props;
+    const { currentState } = this.state;
+
+    if (currentState.type !== "idle") {
+      throw new Error("wasn't idle");
+    }
 
     this.setState({ currentState: { type: "snapshotting" } });
-    camera.capture().then((blob) => {
-      onCapture(blob);
+    camera
+      .capture()
+      .then((blob) => {
+        onCapture(blob);
 
-      this.setState({ currentState: { type: "idle" } });
-    });
+        this.setState({ currentState: { type: "idle" } });
+      })
+      .catch((error) => {
+        this.setState({
+          currentState: {
+            type: "error",
+            error,
+          },
+        });
+      });
 
-    setTimeout(() => this.capture(), interval * 1000);
+    setTimeout(() => this.capture(), interval);
   }
 
   render() {

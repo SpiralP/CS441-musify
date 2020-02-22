@@ -1,11 +1,13 @@
 import React from "react";
 import SpotifyApi from "./SpotifyApi";
-import CameraSetup from "./CameraSetup";
 import { getFacesFromData, FaceApiResponse } from "./face";
 import Mooder from "./Mooder";
 import Autoplay from "./Autoplay";
 import SpotifyTrack from "./SpotifyTrack";
 import SpotifyPlaylist from "./SpotifyPlaylist";
+import CameraSnapshotter from "./CameraSnapshotter";
+import Camera from "./Camera";
+import Loader from "./Loader";
 
 // type Mood =
 //   | "anger"
@@ -34,20 +36,29 @@ export default class App extends React.PureComponent<{}, AppState> {
 
     return (
       <div>
-        <CameraSetup
-          onCapture={(blob) => {
-            this.setState({
-              currentState: { type: "askingServer" },
-            });
+        <Loader
+          promise={Camera.setup()}
+          renderError={(error) => `Camera error: ${error}`}
+          renderLoading={"loading camera"}
+          renderSuccess={(camera) => (
+            <CameraSnapshotter
+              camera={camera}
+              interval={4000}
+              onCapture={(blob) => {
+                this.setState({
+                  currentState: { type: "askingServer" },
+                });
 
-            getFacesFromData(blob).then((data) => {
-              console.log(data);
+                getFacesFromData(blob).then((data) => {
+                  console.log(data);
 
-              this.setState({
-                currentState: { type: "data", data },
-              });
-            });
-          }}
+                  this.setState({
+                    currentState: { type: "data", data },
+                  });
+                });
+              }}
+            />
+          )}
         />
 
         {currentState.type === "data" ? (
