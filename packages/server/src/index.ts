@@ -38,7 +38,7 @@ async function start() {
     })
   );
 
-  app.use(express.static("../client/dist"));
+  app.use(express.static("../client/build"));
 
   // pass access_token from authorization code handoff straight to client :JOY:
   app.get("/callback", function(req, res, next) {

@@ -1,14 +1,13 @@
 import fs from "fs";
-import { expect } from "chai";
-import { getFacesFromUrl, getFacesFromData, FaceData } from "../src/face";
-import { inspect } from "../src/helpers";
+import path from "path";
+import { getFacesFromUrl, getFacesFromData, FaceData } from "../face";
 
 describe("face", () => {
   function testSquishThatCat(faces: FaceData[]) {
-    expect(faces).to.have.lengthOf(1);
+    expect(faces).toHaveLength(1);
 
     const face = faces[0];
-    expect(face.faceAttributes.gender).to.equal("male");
+    expect(face.faceAttributes.gender).toEqual("male");
   }
 
   it("by url", async () => {
@@ -19,7 +18,7 @@ describe("face", () => {
 
   it("by file", async () => {
     testSquishThatCat(
-      await getFacesFromData(fs.readFileSync("tests/image.png"))
+      await getFacesFromData(fs.readFileSync(path.join(__dirname, "image.png")))
     );
   });
 });

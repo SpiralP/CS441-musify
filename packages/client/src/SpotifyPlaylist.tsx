@@ -67,7 +67,6 @@ export default class SpotifyPlaylist extends React.PureComponent<
     if (!data) {
       return "loading";
     } else {
-      const { autoPlay } = this;
       const { playlist, tracks } = data;
       const { name, external_urls } = playlist;
 

@@ -5,14 +5,21 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "cd packages/server && npm run start",
-    "build": "lerna run build",
-    "test": "lerna run test",
-    "dev": "nodemon --ext ts,tsx,json --exec \"npm run build && npm run start\"",
+    "start": "yarn workspace musify-server start",
+    "build": "yarn workspaces run build",
+    "test": "yarn workspace musify-client test",
+    "dev": "nodemon --exec \"yarn run build && yarn run start\"",
     "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
     "lerna": "^3.20.2",
     "nodemon": "^2.0.2"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "packages/client/build",
+      "packages/server/dist"
+    ],
+    "ext": "ts,tsx,json"
   }
 }

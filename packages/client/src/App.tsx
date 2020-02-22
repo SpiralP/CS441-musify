@@ -1,7 +1,7 @@
 import React from "react";
 import SpotifyTokenHandler from "./SpotifyTokenHandler";
 import CameraSetup from "./CameraSetup";
-import { getFacesFromData, FaceData, FaceApiResponse } from "./face";
+import { getFacesFromData, FaceApiResponse } from "./face";
 import Mooder from "./Mooder";
 
 // type Mood =

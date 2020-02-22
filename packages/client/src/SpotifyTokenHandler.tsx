@@ -1,11 +1,10 @@
 import SpotifyWebApi from "spotify-web-api-node";
 import React from "react";
-import SpotifyTrack from "./SpotifyTrack";
 import cookie from "cookie";
 import Spotify from "./Spotify";
 
 const scopes = ["user-read-private", "user-read-email"];
-const redirectUri = location.origin + "/callback";
+const redirectUri = window.location.origin + "/callback";
 
 interface SpotifyTokenHandlerProps {
   clientId: string;
@@ -90,8 +89,6 @@ export default class SpotifyTokenHandler extends React.PureComponent<
       return <Spotify clientId={clientId} accessToken={accessToken} />;
     } else if (currentState.type === "error") {
       return `Error: ${currentState.error}`;
-    } else {
-      throw "unreachable";
     }
   }
 }
