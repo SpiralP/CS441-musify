@@ -8,11 +8,9 @@
     "start": "yarn workspace musify-server start",
     "build": "yarn workspaces run build",
     "test": "yarn workspace musify-client test",
-    "dev": "nodemon --exec \"yarn run build && yarn run start\"",
-    "postinstall": "lerna bootstrap"
+    "dev": "nodemon --exec \"yarn run build && yarn run start\""
   },
   "devDependencies": {
-    "lerna": "^3.20.2",
     "nodemon": "^2.0.2"
   },
   "nodemonConfig": {
