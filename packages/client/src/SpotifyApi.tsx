@@ -14,7 +14,7 @@ export default function SpotifyApi({ render }: SpotifyApiProps) {
     <Loader
       promise={() => getApi()}
       renderError={(error) => `Spotify api error: ${error}`}
-      renderLoading={"Connecting to Spotify"}
+      renderLoading={() => "Connecting to Spotify"}
       renderSuccess={(api) => (
         <SpotifyApiContext.Provider value={api}>
           {render(api)}

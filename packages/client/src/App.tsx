@@ -3,7 +3,6 @@ import SpotifyApi from "./SpotifyApi";
 import { getFacesFromData, FaceApiResponse } from "./face";
 import Mooder from "./Mooder";
 import Autoplay from "./Autoplay";
-import SpotifyTrack from "./SpotifyTrack";
 import SpotifyPlaylist from "./SpotifyPlaylist";
 import CameraSnapshotter from "./CameraSnapshotter";
 import Camera from "./Camera";
@@ -39,7 +38,7 @@ export default class App extends React.PureComponent<{}, AppState> {
         <Loader
           promise={() => Camera.setup()}
           renderError={(error) => `Camera error: ${error}`}
-          renderLoading={"loading camera"}
+          renderLoading={() => "loading camera"}
           renderSuccess={(camera) => (
             <CameraSnapshotter
               camera={camera}
@@ -68,10 +67,7 @@ export default class App extends React.PureComponent<{}, AppState> {
         <SpotifyApi
           render={() => (
             <Autoplay>
-              <SpotifyTrack trackId="1ugKYT4OfPyp4KFovrk4UL" play={true} />
-              <SpotifyTrack trackId="4Ek5wuxuDrHtf04j3qXQCG" />
-              <SpotifyTrack trackId="78Chw7C9NedoNMVKTPDhHU" />
-              <SpotifyPlaylist playlistId="0WfvdlPZunjRMlTWpZdK1t" />
+              <SpotifyPlaylist autoPlay playlistId="0WfvdlPZunjRMlTWpZdK1t" />
             </Autoplay>
           )}
         />

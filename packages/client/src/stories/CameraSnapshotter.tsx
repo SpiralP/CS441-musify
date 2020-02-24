@@ -16,7 +16,7 @@ function Thing() {
       <Loader
         promise={() => Camera.setup()}
         renderError={(error) => `Camera error: ${error}`}
-        renderLoading={"loading camera"}
+        renderLoading={() => "loading camera"}
         renderSuccess={(camera) => (
           <CameraSnapshotter
             camera={camera}
