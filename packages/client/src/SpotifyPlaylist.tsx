@@ -2,6 +2,7 @@ import React from "react";
 import { SpotifyApiContext } from "./SpotifyApi";
 import Loader from "./Loader";
 import AudioTransitioner from "./AudioTransitioner";
+import Promise from "bluebird";
 
 interface SpotifyPlaylistProps {
   playlistId: string;
@@ -36,25 +37,32 @@ export default class SpotifyPlaylist extends React.PureComponent<
           })
         }
         renderError={(error) => `SpotifyPlaylist error: ${error}`}
-        renderLoading={() => "loading playlist"}
+        renderLoading={() => "loading playlist metadata"}
         renderSuccess={({ body, trackIds }) => (
           <Loader
             promise={async (update) => {
-              const tracks: SpotifyApi.SingleTrackResponse[] = [];
-              for (let index = 0; index < trackIds.length; index++) {
-                const id = trackIds[index];
+              let loaded = 0;
 
-                update(index / trackIds.length);
-                const track = await api.getTrack(id);
-                tracks.push(track.body);
-              }
+              const tracks = await Promise.map(
+                trackIds,
+                async (id) => {
+                  const track = await api.getTrack(id);
+
+                  loaded += 1;
+                  update({ loaded, total: trackIds.length });
+
+                  return track.body;
+                },
+
+                { concurrency: 4 }
+              );
 
               return { body, tracks };
             }}
             renderError={(error) => `SpotifyPlaylist track error: ${error}`}
-            renderLoading={(updateValue: number | null) =>
+            renderLoading={(value: { loaded: number; total: number } | null) =>
               `loading playlist ${
-                updateValue ? Math.floor(updateValue * 100) : 0
+                value ? Math.floor((value.loaded / value.total) * 100) : 0
               }%`
             }
             renderSuccess={({ body, tracks }) => {
