@@ -29,27 +29,28 @@ export default class SpotifyPlaylist extends React.PureComponent<
 
     return (
       <Loader
-        promise={() =>
-          api.getPlaylist(playlistId).then(({ body }) => {
-            const tracks = body.tracks.items;
-            const trackIds = tracks.map((track) => track.track.id);
-            return { body, trackIds };
-          })
-        }
+        promise={() => api.getPlaylist(playlistId)}
         renderError={(error) => `SpotifyPlaylist error: ${error}`}
         renderLoading={() => "loading playlist metadata"}
-        renderSuccess={({ body, trackIds }) => (
-          <Loader
+        renderSuccess={({ body }) => (
+          <Loader<
+            {
+              body: SpotifyApi.SinglePlaylistResponse;
+              tracks: SpotifyApi.SingleTrackResponse[];
+            },
+            { loaded: number; total: number }
+          >
             promise={async (update) => {
               let loaded = 0;
 
+              const lightTracks = body.tracks.items;
               const tracks = await Promise.map(
-                trackIds,
-                async (id) => {
+                lightTracks,
+                async ({ track: { id } }) => {
                   const track = await api.getTrack(id);
 
                   loaded += 1;
-                  update({ loaded, total: trackIds.length });
+                  update({ loaded, total: lightTracks.length });
 
                   return track.body;
                 },
@@ -60,7 +61,7 @@ export default class SpotifyPlaylist extends React.PureComponent<
               return { body, tracks };
             }}
             renderError={(error) => `SpotifyPlaylist track error: ${error}`}
-            renderLoading={(value: { loaded: number; total: number } | null) =>
+            renderLoading={(value) =>
               `loading playlist ${
                 value ? Math.floor((value.loaded / value.total) * 100) : 0
               }%`
@@ -71,13 +72,11 @@ export default class SpotifyPlaylist extends React.PureComponent<
                 [url: string]: SpotifyApi.SingleTrackResponse;
               } = {};
 
-              const trackUrls = tracks.map(
-                (track: SpotifyApi.SingleTrackResponse) => {
-                  const url = track.preview_url;
-                  urlToTrack[url] = track;
-                  return url;
-                }
-              );
+              const trackUrls = tracks.map((track) => {
+                const url = track.preview_url;
+                urlToTrack[url] = track;
+                return url;
+              });
 
               return (
                 <div>

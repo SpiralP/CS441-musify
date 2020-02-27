@@ -1,24 +1,29 @@
 import React from "react";
 
-interface LoaderProps<T, U> {
-  promise: (update: (value: U | null) => void) => Promise<T>;
-  renderLoading: (value: U | null) => React.ReactNode;
-  renderSuccess: (value: T) => React.ReactNode;
+interface LoaderProps<PROMISE_TYPE, UPDATE_TYPE> {
+  promise: (
+    update: (value: UPDATE_TYPE | null) => void
+  ) => Promise<PROMISE_TYPE>;
+  renderLoading: (value: UPDATE_TYPE | null) => React.ReactNode;
+  renderSuccess: (value: PROMISE_TYPE) => React.ReactNode;
   renderError: (value: Error) => React.ReactNode;
 }
 
-interface LoaderState<T, U> {
+interface LoaderState<PROMISE_TYPE, UPDATE_TYPE> {
   currentState:
-    | { type: "loading"; value: U | null }
+    | { type: "loading"; value: UPDATE_TYPE | null }
     | { type: "error"; error: Error }
-    | { type: "success"; value: T };
+    | { type: "success"; value: PROMISE_TYPE };
 }
 
-export default class Loader<T, U> extends React.PureComponent<
-  LoaderProps<T, U>,
-  LoaderState<T, U>
+export default class Loader<
+  PROMISE_TYPE,
+  UPDATE_TYPE
+> extends React.PureComponent<
+  LoaderProps<PROMISE_TYPE, UPDATE_TYPE>,
+  LoaderState<PROMISE_TYPE, UPDATE_TYPE>
 > {
-  state: LoaderState<T, U> = {
+  state: LoaderState<PROMISE_TYPE, UPDATE_TYPE> = {
     currentState: {
       type: "loading",
       value: null,
@@ -28,7 +33,7 @@ export default class Loader<T, U> extends React.PureComponent<
   componentDidMount() {
     const { promise } = this.props;
 
-    const updateCallback = (value: U | null) => {
+    const updateCallback = (value: UPDATE_TYPE | null) => {
       this.setState({
         currentState: {
           type: "loading",
