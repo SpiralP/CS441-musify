@@ -20,5 +20,8 @@
       "packages/server/dist/"
     ],
     "ext": "ts,tsx,json"
+  },
+  "prettier": {
+    "trailingComma": "es5"
   }
 }
