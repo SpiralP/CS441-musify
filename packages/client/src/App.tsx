@@ -19,23 +19,29 @@ import Loader from "./Loader";
 //   | "surprise";
 
 interface AppState {
-  currentState:
-    | { type: "idle" }
-    | { type: "askingServer" }
-    | { type: "data"; data: FaceApiResponse };
+  clicked: boolean;
 }
 
 export default class App extends React.PureComponent<{}, AppState> {
   state: AppState = {
-    currentState: { type: "idle" },
+    clicked: false,
   };
 
   render() {
-    const { currentState } = this.state;
+    const { clicked } = this.state;
 
     return (
       <div>
-        <h1 className="titlename">jflkajfaksljfl</h1>
+        <h1
+          className="titlename"
+          onClick={() => {
+            this.setState({
+              clicked: true,
+            });
+          }}
+        >
+          {clicked ? "CLICKED" : "not yet clicked"}
+        </h1>
       </div>
     );
   }
