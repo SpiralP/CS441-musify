@@ -19,29 +19,58 @@ import Loader from "./Loader";
 //   | "surprise";
 
 interface AppState {
-  clicked: boolean;
+  currentState:
+    | { type: "idle" }
+    | { type: "askingServer" }
+    | { type: "data"; data: FaceApiResponse };
 }
 
 export default class App extends React.PureComponent<{}, AppState> {
   state: AppState = {
-    clicked: false,
+    currentState: { type: "idle" },
   };
 
   render() {
-    const { clicked } = this.state;
+    const { currentState } = this.state;
 
     return (
       <div>
-        <h1
-          className="titlename"
-          onClick={() => {
-            this.setState({
-              clicked: true,
-            });
-          }}
-        >
-          {clicked ? "CLICKED" : "not yet clicked"}
-        </h1>
+        <Loader
+          promise={() => Camera.setup()}
+          renderError={(error) => `Camera error: ${error}`}
+          renderLoading={() => "loading camera"}
+          renderSuccess={(camera) => (
+            <CameraSnapshotter
+              camera={camera}
+              interval={4000}
+              onCapture={(blob) => {
+                this.setState({
+                  currentState: { type: "askingServer" },
+                });
+
+                getFacesFromData(blob).then((data) => {
+                  console.log(data);
+
+                  this.setState({
+                    currentState: { type: "data", data },
+                  });
+                });
+              }}
+            />
+          )}
+        />
+
+        {currentState.type === "data" ? (
+          <Mooder data={currentState.data} />
+        ) : null}
+
+        <SpotifyApi
+          render={() => (
+            <Autoplay>
+              <SpotifyPlaylist autoPlay playlistId="0WfvdlPZunjRMlTWpZdK1t" />
+            </Autoplay>
+          )}
+        />
       </div>
     );
   }
