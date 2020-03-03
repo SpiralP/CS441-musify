@@ -1,11 +1,10 @@
 {
-  "name": "musify-client",
+  "name": "musify",
   "private": true,
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
-    "dev": "yarn run start",
     "test": "react-scripts test",
     "storybook": "start-storybook -p 3000 -s public",
     "build-storybook": "build-storybook -s public"
@@ -50,6 +49,7 @@
     ]
   },
   "prettier": {
+    "arrowParens": "always",
     "trailingComma": "es5"
   }
 }
