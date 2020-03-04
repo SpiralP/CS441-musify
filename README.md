@@ -8,7 +8,7 @@ To start a local development server
 
 ```
 yarn install
-yarn dev
+yarn start
 ```
 
 ## Deploying
