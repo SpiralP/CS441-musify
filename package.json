@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "storybook": "start-storybook -p 3000 -s public",
     "build-storybook": "build-storybook -s public"
