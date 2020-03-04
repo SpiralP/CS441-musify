@@ -13,6 +13,4 @@ yarn start
 
 ## Deploying
 
-Pushing to this repo will automatically deploy to https://cs441-musify.herokuapp.com/ after about 5 minutes
-
-Logs at https://dashboard.heroku.com/apps/cs441-musify/logs
+Pushing to this repo will automatically deploy a production build via `yarn build` to https://cs441-musify.now.sh/ after about 2 minutes
