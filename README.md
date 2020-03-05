@@ -2,21 +2,23 @@
 
 ## Dependencies
 
-* A Good:tm: Editor https://code.visualstudio.com/
+- Nodejs https://nodejs.org/en/
 
-* Yarn https://classic.yarnpkg.com/en/docs/install
+- VS Code https://code.visualstudio.com/
 
-* Nodejs https://nodejs.org/en/
+  With Extensions
+
+  - https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 
 ## Running
 
 To start a local development server
 
 ```
-yarn install
-yarn start
+npm install
+npm start
 ```
 
 ## Deploying
 
-Pushing to this repo will automatically deploy a production build via `yarn build` to https://cs441-musify.now.sh/ after about 2 minutes
+Pushing to this repo will automatically deploy a production build via `npm run build` to https://cs441-musify.now.sh/ after about 2 minutes
