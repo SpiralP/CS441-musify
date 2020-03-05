@@ -2,7 +2,8 @@
 
 ## Running
 
-Requires Yarn https://classic.yarnpkg.com/en/docs/install
+Yarn https://classic.yarnpkg.com/en/docs/install
+Nodejs https://nodejs.org/en/
 
 To start a local development server
 
