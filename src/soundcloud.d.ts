@@ -6,6 +6,14 @@ declare module "soundcloud" {
       playlistId: string,
       { auto_play: string, element: string }
     ) => Promise<any>;
+
+    get: (
+      apiPath: string,
+      options: {
+        genres: string;
+        bpm: { from: number };
+      }
+    ) => Promise<any>;
   }
 
   var SC: SCType;

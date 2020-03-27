@@ -66,10 +66,7 @@ export default class App extends React.PureComponent<{}, AppState> {
         ) : null}
 
         <Autoplay>
-          <SoundcloudPlaylist
-            auto_play={true}
-            playlistId="0WfvdlPZunjRMlTWpZdK1t"
-          />
+          <SoundcloudPlaylist autoPlay search="hardbass" />
         </Autoplay>
       </div>
     );

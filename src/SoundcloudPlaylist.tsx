@@ -10,12 +10,12 @@ SC.initialize({
 });
 
 interface SoundcloudPlaylistProps {
-  playlistId: string;
+  search: string;
 
   /**
    * defaults to true
    */
-  auto_play: boolean;
+  autoPlay: boolean;
 }
 
 export default class SoundcloudPlaylist extends React.PureComponent<
@@ -26,34 +26,60 @@ export default class SoundcloudPlaylist extends React.PureComponent<
     autoPlay: true,
   };
 
+  render() {
+    const { search } = this.props;
+
+    return (
+      <Loader
+        promise={() =>
+          SC.get("/tracks", {
+            genres: search,
+            bpm: { from: 120 },
+          })
+        }
+        renderError={(error) => `Error: ${error}`}
+        renderLoading={() => "loading tracks"}
+        renderSuccess={(tracks) => {
+          const { autoPlay } = this.props;
+
+          const track = tracks[Math.floor(Math.random() * tracks.length)];
+
+          return (
+            <SoundcloudEmbed autoPlay={autoPlay} url={track.permalink_url} />
+          );
+        }}
+      />
+    );
+  }
+}
+
+interface SoundcloudEmbedProps {
+  url: string;
+  autoPlay: boolean;
+}
+
+class SoundcloudEmbed extends React.PureComponent<SoundcloudEmbedProps, {}> {
   divRef: React.RefObject<HTMLDivElement> = React.createRef();
   oEmbed?: any;
 
   componentDidMount() {
-    const { playlistId, auto_play } = this.props;
+    const { url, autoPlay } = this.props;
+
     const element = this.divRef.current;
     if (!element) {
       throw new Error("no element?");
     }
 
-    // @ts-ignore
-    SC.get("/tracks", {
-      genres: "hardbass",
-      bpm: { from: 120 },
-    }).then((tracks: any) => {
-      console.log(tracks);
-
-      SC.oEmbed(tracks[0].permalink_url, {
-        auto_play,
-        element,
+    SC.oEmbed(url, {
+      auto_play: autoPlay,
+      element,
+    })
+      .then((oEmbed: any) => {
+        this.oEmbed = oEmbed;
       })
-        .then((oEmbed: any) => {
-          this.oEmbed = oEmbed;
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-    });
+      .catch((err) => {
+        console.warn(err);
+      });
   }
 
   render() {
