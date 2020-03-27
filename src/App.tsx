@@ -1,12 +1,11 @@
 import React from "react";
-import SpotifyApi from "./SpotifyApi";
 import { getFacesFromData, FaceApiResponse } from "./face";
 import Mooder from "./Mooder";
 import Autoplay from "./Autoplay";
-import SpotifyPlaylist from "./SpotifyPlaylist";
 import CameraSnapshotter from "./CameraSnapshotter";
 import Camera from "./Camera";
 import Loader from "./Loader";
+import SoundcloudPlaylist from "./SoundcloudPlaylist";
 
 // type Mood =
 //   | "anger"
@@ -45,7 +44,9 @@ export default class App extends React.PureComponent<{}, AppState> {
               interval={4000}
               onCapture={(blob) => {
                 this.setState({
-                  currentState: { type: "askingServer" },
+                  currentState: {
+                    type: "askingServer",
+                  },
                 });
 
                 getFacesFromData(blob).then((data) => {
@@ -64,13 +65,12 @@ export default class App extends React.PureComponent<{}, AppState> {
           <Mooder data={currentState.data} />
         ) : null}
 
-        <SpotifyApi
-          render={() => (
-            <Autoplay>
-              <SpotifyPlaylist autoPlay playlistId="0WfvdlPZunjRMlTWpZdK1t" />
-            </Autoplay>
-          )}
-        />
+        <Autoplay>
+          <SoundcloudPlaylist
+            auto_play={true}
+            playlistId="0WfvdlPZunjRMlTWpZdK1t"
+          />
+        </Autoplay>
       </div>
     );
   }

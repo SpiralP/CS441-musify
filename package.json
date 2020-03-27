@@ -17,7 +17,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "^3.4.0",
-    "spotify-web-api-node": "github:SpiralP/spotify-web-api-node"
+    "soundcloud": "^3.3.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.3.13",
@@ -30,7 +30,6 @@
     "@types/qs": "^6.9.1",
     "@types/react": "^16.9.22",
     "@types/react-dom": "^16.9.5",
-    "@types/spotify-web-api-node": "^4.0.1",
     "prettier": "^1.19.1",
     "typescript": "^3.8.3"
   },
