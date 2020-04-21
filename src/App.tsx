@@ -41,7 +41,7 @@ export default class App extends React.PureComponent<{}, AppState> {
           renderSuccess={(camera) => (
             <CameraSnapshotter
               camera={camera}
-              interval={4000}
+              interval={10000}
               onCapture={(blob) => {
                 this.setState({
                   currentState: {
