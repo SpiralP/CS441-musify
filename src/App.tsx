@@ -5,7 +5,6 @@ import Autoplay from "./Autoplay";
 import CameraSnapshotter from "./CameraSnapshotter";
 import Camera from "./Camera";
 import Loader from "./Loader";
-import SoundcloudPlaylist from "./SoundcloudPlaylist";
 
 // type Mood =
 //   | "anger"
@@ -61,9 +60,11 @@ export default class App extends React.PureComponent<{}, AppState> {
           )}
         />
 
-        {currentState.type === "data" ? (
-          <Mooder data={currentState.data} />
-        ) : null}
+        <Autoplay>
+          {currentState.type === "data" ? (
+            <Mooder data={currentState.data} />
+          ) : null}
+        </Autoplay>
       </div>
     );
   }
