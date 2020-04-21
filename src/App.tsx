@@ -64,10 +64,6 @@ export default class App extends React.PureComponent<{}, AppState> {
         {currentState.type === "data" ? (
           <Mooder data={currentState.data} />
         ) : null}
-
-        <Autoplay>
-          <SoundcloudPlaylist autoPlay search="hardbass" />
-        </Autoplay>
       </div>
     );
   }

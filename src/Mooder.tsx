@@ -1,5 +1,7 @@
 import React from "react";
 import { FaceApiResponse } from "./face";
+import Autoplay from "./Autoplay";
+import SoundcloudPlaylist from "./SoundcloudPlaylist";
 
 interface MooderProps {
   data: FaceApiResponse;
@@ -25,7 +27,11 @@ export default class Mooder extends React.PureComponent<MooderProps, {}> {
         }
       );
 
-      return mostEmotion;
+      return (
+        <Autoplay>
+          <SoundcloudPlaylist autoPlay search={`${mostEmotion} songs`} />
+        </Autoplay>
+      );
     }
   }
 }
