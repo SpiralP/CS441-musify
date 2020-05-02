@@ -69,7 +69,7 @@ export default class CameraSnapshotter extends React.PureComponent<
           large
           disabled={currentState.type !== "idle"}
         >
-          {currentState.type === "idle"
+          {currentState.type === "snapshotting"
             ? "Snapshotting!"
             : "Press to Snapshot!"}
         </Button>
