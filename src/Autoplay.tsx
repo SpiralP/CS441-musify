@@ -24,7 +24,7 @@ export default class Autoplay extends React.PureComponent<{}, AutoplayState> {
             intent={Intent.PRIMARY}
             large
           >
-            Press to play audio!
+            Press to Begin!
           </Button>
         </>
       );

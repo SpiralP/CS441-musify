@@ -1,11 +1,23 @@
 import React from "react";
 import { FaceApiResponse } from "./face";
-import Autoplay from "./Autoplay";
 import SoundcloudPlaylist from "./SoundcloudPlaylist";
 
 interface MooderProps {
   data: FaceApiResponse;
 }
+
+const emotionToGenre: {
+  [emotion: string]: string[];
+} = {
+  anger: ["heavy metal", "rap", "hardbass"],
+  contempt: ["punk rock", "emo"],
+  disgust: ["death metal"],
+  fear: ["classical"],
+  happiness: ["happy", "rock", "pop"],
+  neutral: ["ambient", "classical"],
+  sadness: ["sad", "blues", "lo-fi"],
+  surprise: ["happy", "rock", "pop"],
+};
 
 export default class Mooder extends React.PureComponent<MooderProps, {}> {
   render() {
@@ -27,10 +39,15 @@ export default class Mooder extends React.PureComponent<MooderProps, {}> {
         }
       );
 
+      const genres = emotionToGenre[mostEmotion];
+      const genre = genres[Math.floor(Math.random() * genres.length)];
+
       return (
         <h2>
-          {mostEmotion}
-          <SoundcloudPlaylist autoPlay genre={`${mostEmotion} songs`} />
+          {`${Math.floor(
+            mostEmotionWeight * 100
+          )}% ${mostEmotion} - ${genre} music`}
+          <SoundcloudPlaylist autoPlay genre={genre} />
         </h2>
       );
     }

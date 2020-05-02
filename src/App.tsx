@@ -1,11 +1,12 @@
+/* eslint-disable jsx-a11y/alt-text */
+
 import React from "react";
 import { getFacesFromData, FaceApiResponse } from "./face";
-import Mooder from "./Mooder";
 import Autoplay from "./Autoplay";
 import CameraSnapshotter from "./CameraSnapshotter";
 import Camera from "./Camera";
 import Loader from "./Loader";
-import SoundcloudPlaylist from "./SoundcloudPlaylist";
+import Mooder from "./Mooder";
 
 // type Mood =
 //   | "anger"
@@ -33,48 +34,40 @@ export default class App extends React.PureComponent<{}, AppState> {
     const { currentState } = this.state;
 
     return (
-      <div
-        style={{
-          textAlign: "center",
-          display: "grid",
-          justifyContent: "center",
-          fontSize: "24px",
-        }}
-      >
+      <div>
         <img src="logo.png" />
         <br />
-        <Loader
-          promise={() => Camera.setup()}
-          renderError={(error) => `Camera error: ${error}`}
-          renderLoading={() => "loading camera"}
-          renderSuccess={(camera) => (
-            <CameraSnapshotter
-              camera={camera}
-              interval={10000}
-              onCapture={(blob) => {
-                this.setState({
-                  currentState: {
-                    type: "askingServer",
-                  },
-                });
-
-                getFacesFromData(blob).then((data) => {
-                  console.log(data);
-
-                  this.setState({
-                    currentState: { type: "data", data },
-                  });
-                });
-              }}
-            />
-          )}
-        />
 
         <Autoplay>
-          <SoundcloudPlaylist autoPlay genre={`happy`} />
-          {/* {currentState.type === "data" ? (
+          <Loader
+            promise={() => Camera.setup()}
+            renderError={(error) => `Camera error: ${error}`}
+            renderLoading={() => "loading camera"}
+            renderSuccess={(camera) => (
+              <CameraSnapshotter
+                camera={camera}
+                onCapture={(blob) => {
+                  this.setState({
+                    currentState: {
+                      type: "askingServer",
+                    },
+                  });
+
+                  getFacesFromData(blob).then((data) => {
+                    console.log(data);
+
+                    this.setState({
+                      currentState: { type: "data", data },
+                    });
+                  });
+                }}
+              />
+            )}
+          />
+
+          {currentState.type === "data" ? (
             <Mooder data={currentState.data} />
-          ) : null} */}
+          ) : null}
         </Autoplay>
       </div>
     );

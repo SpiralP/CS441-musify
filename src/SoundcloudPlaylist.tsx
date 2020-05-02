@@ -1,7 +1,5 @@
 import React from "react";
 import Loader from "./Loader";
-import AudioTransitioner from "./AudioTransitioner";
-import Promise from "bluebird";
 import SC from "soundcloud";
 
 // https://github.com/soundcloud/soundcloud-javascript/blob/47a6a781273da1b7ce205ca429098f0b9456fe2d/src/api.js#L113
@@ -27,7 +25,7 @@ export default class SoundcloudPlaylist extends React.PureComponent<
   };
 
   render() {
-    const { genre: genre } = this.props;
+    const { genre } = this.props;
 
     return (
       <Loader

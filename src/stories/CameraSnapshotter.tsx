@@ -20,7 +20,6 @@ function Thing() {
         renderSuccess={(camera) => (
           <CameraSnapshotter
             camera={camera}
-            interval={1000}
             onCapture={(blob) => {
               setUrl(URL.createObjectURL(blob));
             }}

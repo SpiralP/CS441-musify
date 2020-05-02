@@ -1,5 +1,5 @@
 import React from "react";
-import { H5, Intent, Label, Slider, Spinner, Switch } from "@blueprintjs/core";
+import { Intent, Spinner } from "@blueprintjs/core";
 
 interface LoaderProps<PROMISE_TYPE, UPDATE_TYPE> {
   promise: (

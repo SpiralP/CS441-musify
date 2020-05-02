@@ -1,14 +1,12 @@
+/* eslint-disable jsx-a11y/alt-text */
+
 import React from "react";
 import Camera from "./Camera";
+import { Intent, Button } from "@blueprintjs/core";
 
 interface CameraSnapshotterProps {
   onCapture: (blob: Blob) => void;
   camera: Camera;
-
-  /**
-   * milliseconds
-   */
-  interval: number;
 }
 
 interface CameraSnapshotterState {
@@ -32,11 +30,11 @@ export default class CameraSnapshotter extends React.PureComponent<
   }
 
   private capture() {
-    const { interval, camera, onCapture } = this.props;
+    const { camera, onCapture } = this.props;
     const { currentState } = this.state;
 
     if (currentState.type !== "idle") {
-      throw new Error("wasn't idle");
+      return;
     }
 
     this.setState({ currentState: { type: "snapshotting" } });
@@ -55,19 +53,28 @@ export default class CameraSnapshotter extends React.PureComponent<
           },
         });
       });
-
-    setTimeout(() => this.capture(), interval);
   }
 
   render() {
     const { currentState } = this.state;
+    const { camera } = this.props;
 
-    if (currentState.type === "idle") {
-      return <div>{this.props.camera.canvas}</div>;
-    } else if (currentState.type === "snapshotting") {
-      return "snapshotting!";
-    } else if (currentState.type === "error") {
-      return `${currentState.error}`;
-    }
+    const src = camera.canvas.toDataURL();
+
+    return (
+      <div>
+        <Button
+          onClick={() => this.capture()}
+          intent={Intent.PRIMARY}
+          large
+          disabled={currentState.type !== "idle"}
+        >
+          Press to Snapshot!
+        </Button>
+        <br />
+
+        <img src={src} />
+      </div>
+    );
   }
 }
