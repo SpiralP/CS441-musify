@@ -8,16 +8,6 @@ import Camera from "./Camera";
 import Loader from "./Loader";
 import Mooder from "./Mooder";
 
-// type Mood =
-//   | "anger"
-//   | "contempt"
-//   | "disgust"
-//   | "fear"
-//   | "happiness"
-//   | "neutral"
-//   | "sadness"
-//   | "surprise";
-
 interface AppState {
   currentState:
     | { type: "idle" }
@@ -35,7 +25,12 @@ export default class App extends React.PureComponent<{}, AppState> {
 
     return (
       <div>
-        <img src="logo.png" />
+        <img
+          style={{
+            width: "100%",
+          }}
+          src="logo.png"
+        />
         <br />
 
         <Autoplay>
