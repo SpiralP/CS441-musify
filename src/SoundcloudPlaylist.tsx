@@ -10,7 +10,7 @@ SC.initialize({
 });
 
 interface SoundcloudPlaylistProps {
-  search: string;
+  genre: string;
 
   /**
    * defaults to true
@@ -27,18 +27,18 @@ export default class SoundcloudPlaylist extends React.PureComponent<
   };
 
   render() {
-    const { search } = this.props;
+    const { genre: genre } = this.props;
 
     return (
       <Loader
         promise={() =>
           SC.get("/tracks", {
-            genres: search,
+            genres: genre,
             bpm: { from: 120 },
           })
         }
         renderError={(error) => `Error: ${error}`}
-        renderLoading={() => "loading tracks"}
+        renderLoading={() => "Loading Tracks"}
         renderSuccess={(tracks) => {
           const { autoPlay } = this.props;
 

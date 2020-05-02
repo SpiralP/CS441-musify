@@ -5,6 +5,7 @@ import Autoplay from "./Autoplay";
 import CameraSnapshotter from "./CameraSnapshotter";
 import Camera from "./Camera";
 import Loader from "./Loader";
+import SoundcloudPlaylist from "./SoundcloudPlaylist";
 
 // type Mood =
 //   | "anger"
@@ -32,7 +33,16 @@ export default class App extends React.PureComponent<{}, AppState> {
     const { currentState } = this.state;
 
     return (
-      <div>
+      <div
+        style={{
+          textAlign: "center",
+          display: "grid",
+          justifyContent: "center",
+          fontSize: "24px",
+        }}
+      >
+        <img src="logo.png" />
+        <br />
         <Loader
           promise={() => Camera.setup()}
           renderError={(error) => `Camera error: ${error}`}
@@ -61,9 +71,10 @@ export default class App extends React.PureComponent<{}, AppState> {
         />
 
         <Autoplay>
-          {currentState.type === "data" ? (
+          <SoundcloudPlaylist autoPlay genre={`happy`} />
+          {/* {currentState.type === "data" ? (
             <Mooder data={currentState.data} />
-          ) : null}
+          ) : null} */}
         </Autoplay>
       </div>
     );

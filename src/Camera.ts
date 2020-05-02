@@ -1,8 +1,8 @@
 const TARGET_WIDTH = 960;
 
 export default class Camera {
-  canvas: HTMLCanvasElement;
-  video: HTMLVideoElement;
+  public canvas: HTMLCanvasElement;
+  public video: HTMLVideoElement;
 
   private constructor(canvas: HTMLCanvasElement, video: HTMLVideoElement) {
     this.canvas = canvas;

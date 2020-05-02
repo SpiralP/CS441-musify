@@ -1,4 +1,5 @@
 import React from "react";
+import { H5, Intent, Label, Slider, Spinner, Switch } from "@blueprintjs/core";
 
 interface LoaderProps<PROMISE_TYPE, UPDATE_TYPE> {
   promise: (
@@ -67,7 +68,12 @@ export default class Loader<
     if (currentState.type === "success") {
       return this.props.renderSuccess(currentState.value);
     } else if (currentState.type === "loading") {
-      return this.props.renderLoading(currentState.value);
+      return (
+        <div style={{ display: "block", textAlign: "center" }}>
+          <Spinner intent={Intent.PRIMARY} size={Spinner.SIZE_LARGE} />
+          <h2>{this.props.renderLoading(currentState.value)}</h2>
+        </div>
+      );
     } else if (currentState.type === "error") {
       return this.props.renderError(currentState.error);
     }

@@ -30,7 +30,7 @@ export default class Mooder extends React.PureComponent<MooderProps, {}> {
       return (
         <h2>
           {mostEmotion}
-          <SoundcloudPlaylist autoPlay search={`${mostEmotion} songs`} />
+          <SoundcloudPlaylist autoPlay genre={`${mostEmotion} songs`} />
         </h2>
       );
     }

@@ -63,7 +63,7 @@ export default class CameraSnapshotter extends React.PureComponent<
     const { currentState } = this.state;
 
     if (currentState.type === "idle") {
-      return "idle";
+      return <div>{this.props.camera.canvas}</div>;
     } else if (currentState.type === "snapshotting") {
       return "snapshotting!";
     } else if (currentState.type === "error") {
